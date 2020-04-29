@@ -15,6 +15,22 @@
         v-show="!loggedIn"
         style="font-family: 'Times New Roman', Times, serif;"
       >
+      <pre>{{selectedServer}}</pre>
+      <h3>Select Server</h3>
+        <v-select
+          :items="servers.map(server=>server.name)"
+          v-model="selectedServer"
+          filled
+          label="Select Server"
+          dense
+          solo
+          class="message-box pb-2"
+          style=""
+          background-color="black"
+          hide-details
+          >
+          <!-- :value="servers.map(server=>server.name)[0]" -->
+        </v-select>
         <h3 class="pl-1" style="font-stretch: expanded">
           <span class="pr-0" style="text-decoration: underline">N</span>ame:
         </h3>
@@ -22,6 +38,7 @@
           <v-text-field
             class="message-box"
             solo
+            :menu-props="{ top: true, offsetY: true }"
             full-width
             flat
             dense
@@ -33,7 +50,7 @@
         <h3 class="pl-1" style="font-stretch: expanded">
           <span class="pr-0" style="text-decoration: underline">P</span>assword:
         </h3>
-        <div class="message-box-wrapper  ma-0 pa-0">
+        <div class="message-box-wrapper ma-0 pa-0">
           <v-text-field
             class="message-box"
             solo
@@ -58,12 +75,13 @@
               block
               :class="'wc2-btn display-1'"
               height="80"
-              @click.native="connect(username, password, chatroom)"
+              @click.native="connect(username, password)"
               :disabled="(username.length >= 4 && password.length >= 4) ? false : true"
             >
               <span>Login</span>
             </v-btn>
           </v-avatar>
+            <pre>{{servers.filter(server=>server.name===selectedServer)[0]}}</pre>
         </div>
       </div>
       <!-- login -->
@@ -117,6 +135,7 @@ import { mapState, mapMutations, mapActions } from 'vuex'
 export default {
   data() {
     return {
+      selectedServer: 0,
       username: '',
       password: '',
       chatroom: 'War2BNE',
@@ -234,7 +253,8 @@ export default {
   },
   computed: {
     ...mapState({
-      loggedIn: state => state.loggedIn
+      loggedIn: state => state.loggedIn,
+      servers: state => state.servers
     }),
     isMobile() {
       return this.$vuetify.breakpoint.width < 1264
@@ -284,7 +304,8 @@ export default {
     },
 
     connect() {
-      let ret = this.pvpgn.connect(this.username, this.password, this.chatroom)
+      let server = this.servers.filter(server=>server.name===this.selectedServer)[0]
+      let ret = this.pvpgn.connect(this.username, this.password, server)
       // window.PVPGN.connect(this.name, this.password, 'FIGHTCLUB')
       if (!ret) {
         this.errorMessage = 'Connection failed'

@@ -408,25 +408,36 @@ function PVPGN(connect_callback, disconnect_callback, updateusers_callback, user
     sendCmd(msg);
   }
 
-  that.connect = function (username, password, channel) {
+  that.connect = function (username, password, server) {
     // var host = '10.14.72.153',
     //   port = 6110,
-      // username = username,
-      // password = password,
-      channel = 'war2bne',
-      clientTag = 'W2BN',
+    //   username = username,
+    //   password = password,
+    //   channel = 'war2bne',
+    //   clientTag = 'W2BN',
+    //   scheme = "ws://",
+    //   // uri;
+
+    // host = 'pvpgn-websockify.herokuapp.com',
+    //   port = 80
+    
+    console.log(server)
+    var host = server.websockify_ip,
+      port = server.websockify_port,
+      username = username,
+      password = password,
+      channel = server.settings.last_channel || 'war2bne',
+      clientTag = server.settings.last_client || 'W2BN',
       scheme = "ws://",
-      uri;
+      uri
 
-    var host = 'pvpgn-websockify.herokuapp.com',
-      port = 80,
-
-      Util.Debug(">> connect");
+    Util.Debug(">> connect");
     if (ws) {
       ws.close();
     }
 
     uri = scheme + host + ":" + port;
+
     console.log("connecting to " + uri);
 
     ws.open(uri);

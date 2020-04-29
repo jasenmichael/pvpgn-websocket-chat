@@ -219,6 +219,7 @@
 
 .message-box {
   /* height: 100%; */
+  z-index: 99999;
   height: 60px;
   border-style: solid;
   border-width: 6px 6px 6px 6px;
