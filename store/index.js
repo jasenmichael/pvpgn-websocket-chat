@@ -38,6 +38,9 @@ export const actions = {
   }) {
     await commit('SET_LOGGED_IN', false)
     await commit('SET_USERS_IN_CHANNEL', '')
+  },
+  async setCurrentChannel({commit}, channel){
+    await commit('SET_CURRENT_CHANNEL', channel)
   }
 }
 

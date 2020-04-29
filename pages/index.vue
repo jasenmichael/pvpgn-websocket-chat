@@ -305,7 +305,7 @@ export default {
     connect() {
       let channel = this.servers.filter(server=>server.name===this.selectedServer)[0].settings.last_channel
       console.log('channel===>>>', channel)
-      this.SET_CURRENT_CHANNEL = channel
+      this.SET_CURRENT_CHANNEL(channel)
       let server = this.servers.filter(server=>server.name===this.selectedServer)[0]
       let ret = this.pvpgn.connect(this.username, this.password, server)
       // window.PVPGN.connect(this.name, this.password, 'FIGHTCLUB')
