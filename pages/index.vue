@@ -15,7 +15,7 @@
         v-show="!loggedIn"
         style="font-family: 'Times New Roman', Times, serif;"
       >
-      <pre>{{selectedServer}}</pre>
+      <!-- <pre>{{selectedServer}}</pre> -->
       <h3>Select Server</h3>
         <v-select
           :items="servers.map(server=>server.name)"
@@ -81,7 +81,7 @@
               <span>Login</span>
             </v-btn>
           </v-avatar>
-            <pre>{{servers.filter(server=>server.name===selectedServer)[0]}}</pre>
+            <!-- <pre>{{servers.filter(server=>server.name===selectedServer)[0]}}</pre> -->
         </div>
       </div>
       <!-- login -->
