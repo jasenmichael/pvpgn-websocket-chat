@@ -3,12 +3,13 @@ export const state = () => ({
   connect: false,
   channels: [],
   usersInChannel: '',
+  current_channel: '',
   servers: [{
     name: 'Ru: War2 Server',
     zone: '-3',
     host: 'server.war2.ru',
     port: '6112',
-    websockify_ip: 'pvpgn-websockify.herokuapp.com',
+    websockify_ip: 'server-war2ru-websockify.herokuapp.com',  
     websockify_port: '80',
     enabled: true,
     client_tags: ['W2BN'],
@@ -49,5 +50,8 @@ export const mutations = {
     if (state.usersInChannel !== users) {
       state.usersInChannel = users
     }
+  },
+  SET_CURRENT_CHANNEL(state, channel) {
+    state.current_channel = channel
   }
 }

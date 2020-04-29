@@ -120,7 +120,7 @@
             :class="isMobile ? 'mr-3' : 'ml-6 mr-7'"
           >
             <div class="my-3">
-              <span pt-4>FIGHTCLUB (2)</span>
+              <span pt-4>{{current_channel}}({{usersInChannel.length}})</span>
             </div>
           </v-row>
 
@@ -231,7 +231,8 @@ export default {
     },
     ...mapState({
       loggedIn: state => state.loggedIn,
-      getUsersInChannel: state => state.usersInChannel
+      getUsersInChannel: state => state.usersInChannel,
+      current_channel: state => state.current_channel
     }),
     usersInChannel() {
       return this.getUsersInChannel.split(',')

@@ -237,11 +237,9 @@ export default {
     this.isMobile
   },
   async mounted() {
-    console.log('scriptsLoaded', this.scriptsLoaded)
     if (process.client) {
       let loadScriptsInterval = setInterval(async () => {
         await this.loadPvpgnWebsocket()
-        console.log(this.scriptsLoaded)
         if (this.pvpgn !== undefined) {
           clearInterval(loadScriptsInterval)
           setTimeout(() => {
@@ -275,7 +273,8 @@ export default {
   methods: {
     ...mapMutations({
       SET_LOGGED_IN: 'SET_LOGGED_IN',
-      SET_USERS_IN_CHANNEL: 'SET_USERS_IN_CHANNEL'
+      SET_USERS_IN_CHANNEL: 'SET_USERS_IN_CHANNEL',
+      SET_CURRENT_CHANNEL: 'SET_CURRENT_CHANNEL'
     }),
     ...mapActions(['loggIn', 'loggOut']),
     // LOAD PVPGN SOCKET
@@ -304,6 +303,9 @@ export default {
     },
 
     connect() {
+      let channel = this.servers.filter(server=>server.name===this.selectedServer)[0].settings.last_channel
+      console.log('channel===>>>', channel)
+      this.SET_CURRENT_CHANNEL = channel
       let server = this.servers.filter(server=>server.name===this.selectedServer)[0]
       let ret = this.pvpgn.connect(this.username, this.password, server)
       // window.PVPGN.connect(this.name, this.password, 'FIGHTCLUB')
